@@ -1,2 +1,3 @@
 .venv/              # virtual environment
 __pycache__/        # Python cache files
+instance/           # database file (will change this later)
