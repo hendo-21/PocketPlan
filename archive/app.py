@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy     # Flask-SQLAlchemy extension initialization
 from sqlalchemy.orm import DeclarativeBase  # Flask-SQLAlchemy extension initialization
 from sqlalchemy.orm import Mapped, mapped_column
@@ -20,13 +20,9 @@ db.init_app(app)
 
 # Define database model
 class Transactions(db.Model):
-    # Set the name of the table
     __tablename__ = "transactions"
 
-    # Create column for unique ID - needed/highly recommended
     id: Mapped[int] = mapped_column(primary_key=True)
-
-    # Create columns for settings, defaulting to $0 
     date: Mapped[str] = mapped_column(default=date.today().strftime("%D"))
     amount: Mapped[float] = mapped_column(default=0.0)
     memo: Mapped[str] = mapped_column()
@@ -39,5 +35,3 @@ with app.app_context():
 @app.route("/")
 def index():
     return render_template('index.html')
-
-print("is this thing on?")
