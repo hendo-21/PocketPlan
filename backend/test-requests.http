@@ -1,0 +1,89 @@
+TEST_USER_ID = 2
+
+### Request 1: Create a transaction
+### Status Code: 201
+### Response Body: JSON containing the newly created transaction
+### Repsonse type: application/json
+POST http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+{
+    "date": "11/15/25",
+    "amount": 20.25,
+    "memo": "pizzanista lunch"
+}
+
+### Request 2: Create a transaction with no date input
+### Status Code: 201
+### Response Body: JSON containing the newly created transaction
+### Repsonse type: application/json
+POST http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+{
+    "amount": 10.25,
+    "memo": "coffee with Hayley"
+}
+
+### Request 3: Get all Transactions
+### Status Code: 200
+### Response Body: array of the two transactions represented as dicts
+GET http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+### Request 4: Update a transaction
+### Status Code: 200
+### Response Body: JSON containing the updated dicitonary
+PUT http://127.0.0.1:5000/transactions/1 HTTP/1.1
+content-type: application/json
+
+{
+    "amount": 18.00
+}
+
+### Request 5: Update a transaction for an id that doesn't exist
+### Status Code: 404
+### Response Body: JSON containing the updated dicitonary
+PUT http://127.0.0.1:5000/transactions/10 HTTP/1.1
+content-type: application/json
+
+{
+    "memo": "does this exist?"
+}
+
+### Request 6: Create a transaction 
+### Status Code: 201
+### Response Body: JSON containing the newly created transaction
+### Repsonse type: application/json
+POST http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+{
+    "date": "11/10/25",
+    "amount": 125.36,
+    "memo": "dinner with friends"
+}
+
+### Request 7: Delete transaction by id
+### Status Code: 204
+### Response Body: No content
+DELETE http://127.0.0.1:5000/transactions/1 HTTP/1.1
+content-type: application/json
+
+### Request 8: Get all Transactions
+### Status Code: 200
+### Response Body: array of the two transactions represented as dicts, the first transaction deleted
+GET http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+### Request 9: Delete all transactions
+### Status Code: 204
+### Response Body: No content
+DELETE http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+### Request 10: Get all Transactions
+### Status Code: 200
+### Response Body: an empty array
+GET http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
