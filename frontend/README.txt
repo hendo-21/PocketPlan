@@ -1,1 +1,0 @@
-Frontend TODO. Holding new architecture for Flask as REST API and React front end.
