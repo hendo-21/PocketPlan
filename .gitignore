@@ -1,5 +1,5 @@
-backend/.venv/              # virtual environment
-backend/__pycache__/        # Python cache files
-backend/instance/           # database file (will change this later) 
-archive/                    # files from previous architecture
+/backend/.venv/              # virtual environment
+/backend/__pycache__/        # Python cache files
+/backend/instance/           # database file (will change this later) 
+/archive/                    # files from previous architecture
 __pycache__/
