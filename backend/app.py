@@ -16,19 +16,15 @@ with app.app_context():
 
 
 @app.post('/transactions')
-def create_transaction():
+def add_transaction():
     try:
+        # Get the request body
         req_body = request.get_json()
-        tr_params = {
-            'amount': req_body['amount'],
-            'memo': req_body['memo']
-        }
-        if 'date' in req_body:
-            tr_params['date'] = req_body['date']
-        print(tr_params)
-        new_transaction = Transactions(**tr_params)
-        db.session.add(new_transaction)
-        db.session.commit()
+
+        # Create the transaction
+        new_transaction = Transactions.create_transaction(req_body)
+
+        # Return the response if successful
         return jsonify(new_transaction.to_dict()), 201
     except Exception as e:
         return {"error": str(e)}, 500
@@ -36,14 +32,8 @@ def create_transaction():
 
 @app.get('/transactions')
 def get_all_transactions():
-    # Use this to build React table component
-    all_tr = Transactions.query.all()
-    tr_clean = []
-
     try:
-        for transaction in all_tr:
-            tr_clean.append(transaction.to_dict())
-        return jsonify(tr_clean), 200
+        return jsonify(Transactions.get_all_transactions()), 200
     except Exception as e:
         return {"error": str(e)}, 500
 
