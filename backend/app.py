@@ -68,3 +68,12 @@ def delete_transaction(id):
         return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
+    
+
+@app.get('/transactions/total-spend')
+def get_total_spend():
+    try:
+        total = Transactions.get_total_spend()
+        return jsonify(total), 200
+    except Exception as e:
+        return {"error": str(e)}, 500

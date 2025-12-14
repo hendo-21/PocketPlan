@@ -82,13 +82,19 @@ content-type: application/json
 GET http://127.0.0.1:5000/transactions HTTP/1.1
 content-type: application/json
 
-### Request 10: Delete all transactions
+### Request 10: Get total spend 
+### Status Code: 200
+### Response Body: JSON object containing the sum of amount column 
+GET http://127.0.0.1:5000/transactions/total-spend HTTP/1.1
+content-type: application/json
+
+### Request 11: Delete all transactions
 ### Status Code: 204
 ### Response Body: No content
 DELETE http://127.0.0.1:5000/transactions HTTP/1.1
 content-type: application/json
 
-### Request 11: Get all Transactions
+### Request 12: Get all Transactions
 ### Status Code: 200
 ### Response Body: an empty array
 GET http://127.0.0.1:5000/transactions HTTP/1.1

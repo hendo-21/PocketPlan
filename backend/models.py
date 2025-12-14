@@ -1,7 +1,8 @@
-from sqlalchemy.orm import Mapped, mapped_column, session    # For model creation
+from sqlalchemy.orm import Mapped, mapped_column    # For model creation
 from datetime import date                           # For transaction timestamp
 from database import db                             # Gives access to db.Model to define database models
 from sqlalchemy_serializer import SerializerMixin   # Allows for serialization of models (to_dict() method). Serialized models need to include in model def
+from sqlalchemy import func, select
 
 
 # Define database model. SerializerMixin adds a .to_dict() method to model instances.
@@ -94,3 +95,15 @@ class Transactions(db.Model, SerializerMixin):
             db.session.delete(to_delete)
             db.session.commit()
             return 0
+        
+
+    '''
+    Sums the values in amount column and returns the result. Uses SQLAlchemy core aggregate method.
+    :returns result: a float representing the sum of values in "amount" column of transactions table
+    '''
+    @classmethod
+    def get_total_spend(cls):
+        statement = select(func.sum(cls.amount))
+        result = db.session.execute(statement).scalar()
+        return result
+        
