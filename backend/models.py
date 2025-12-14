@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped, mapped_column    # For model creation
+from sqlalchemy.orm import Mapped, mapped_column, session    # For model creation
 from datetime import date                           # For transaction timestamp
 from database import db                             # Gives access to db.Model to define database models
 from sqlalchemy_serializer import SerializerMixin   # Allows for serialization of models (to_dict() method). Serialized models need to include in model def
@@ -55,3 +55,18 @@ class Transactions(db.Model, SerializerMixin):
 
         # Return the array of transactions as dicts
         return trs_as_dict
+    
+
+    '''
+    Updates a transaction.
+    :param id: an int representing the unique id assigned by SQLite of the transaction to update
+    :param req_body: a dict containing the attributes to be updated
+    :returns: the updated transaction instance or None if not found
+    '''
+    @classmethod
+    def update_transaction(cls, id: int, req_body: dict):
+        tr_to_update = Transactions.query.get(id)
+        if tr_to_update:
+            tr_to_update.amount =  req_body['amount']
+            db.session.commit()
+        return tr_to_update

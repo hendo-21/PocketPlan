@@ -41,20 +41,13 @@ def get_all_transactions():
 @app.put('/transactions/<int:id>')
 def update_transaction(id):
     req_body = request.get_json()
-    print("Request Body:", req_body)
     try: 
-        tr_to_update = db.get_or_404(Transactions, id, description="Transaction not found")
-        print("Transaction:", tr_to_update)
-        if 'date' in req_body:
-            tr_to_update.date = req_body['date']
-        if 'amount' in req_body:
-            tr_to_update.amount = req_body['amount']
-        if 'memo' in req_body:
-            tr_to_update.memo = req_body['memo']
-        db.session.commit()
-        return jsonify(tr_to_update.to_dict()), 200
+        updated_tr = Transactions.update_transaction(id, req_body)
+        if updated_tr:
+            return jsonify(updated_tr.to_dict()), 200
+        return {"error: transaction not found"}, 404
     except Exception as e:
-        return {"error": str(e)}, 404
+        return {"error": str(e)}, 500
 
 
 @app.delete('/transactions')
