@@ -70,19 +70,25 @@ content-type: application/json
 DELETE http://127.0.0.1:5000/transactions/1 HTTP/1.1
 content-type: application/json
 
-### Request 8: Get all Transactions
+### Request 8: Delete transaction with no matching ID
+### Status Code: 404
+### Response Body: { "error": "not found" }
+DELETE http://127.0.0.1:5000/transactions/10 HTTP/1.1
+content-type: application/json
+
+### Request 9: Get all Transactions
 ### Status Code: 200
 ### Response Body: array of the two transactions represented as dicts, the first transaction deleted
 GET http://127.0.0.1:5000/transactions HTTP/1.1
 content-type: application/json
 
-### Request 9: Delete all transactions
+### Request 10: Delete all transactions
 ### Status Code: 204
 ### Response Body: No content
 DELETE http://127.0.0.1:5000/transactions HTTP/1.1
 content-type: application/json
 
-### Request 10: Get all Transactions
+### Request 11: Get all Transactions
 ### Status Code: 200
 ### Response Body: an empty array
 GET http://127.0.0.1:5000/transactions HTTP/1.1

@@ -45,7 +45,7 @@ def update_transaction(id):
         updated_tr = Transactions.update_transaction(id, req_body)
         if updated_tr:
             return jsonify(updated_tr.to_dict()), 200
-        return {"error: transaction not found"}, 404
+        return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
 
@@ -53,8 +53,7 @@ def update_transaction(id):
 @app.delete('/transactions')
 def delete_all_transactions():
     try:
-        db.session.query(Transactions).delete()
-        db.session.commit()
+        Transactions.delete_all()
         return '', 204
     except Exception as e:
         return {"error": str(e)}, 500
@@ -63,9 +62,9 @@ def delete_all_transactions():
 @app.delete('/transactions/<int:id>')
 def delete_transaction(id):
     try:
-        to_delete = db.get_or_404(Transactions, id, description="Transaction not found")
-        db.session.delete(to_delete)
-        db.session.commit()
-        return '', 204
+        result = Transactions.delete_one(id)
+        if result == 0:
+            return '', 204
+        return {"error": "not found"}, 404
     except Exception as e:
-        return {"error": str(e)}, 404
+        return {"error": str(e)}, 500

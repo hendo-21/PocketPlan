@@ -65,8 +65,32 @@ class Transactions(db.Model, SerializerMixin):
     '''
     @classmethod
     def update_transaction(cls, id: int, req_body: dict):
-        tr_to_update = Transactions.query.get(id)
+        tr_to_update = cls.query.get(id)
         if tr_to_update:
             tr_to_update.amount =  req_body['amount']
             db.session.commit()
-        return tr_to_update
+            return tr_to_update
+        return None
+    
+
+    '''
+    Delete all transactions.
+    '''
+    @classmethod
+    def delete_all(cls):
+        db.session.query(cls).delete()
+        db.session.commit()
+
+
+    '''
+    Delete transaction by Id.
+    :param id: id of the transaction - automatically assigned
+    :returns:
+    '''
+    @classmethod
+    def delete_one(cls, id:int):
+        to_delete = cls.query.get(id)
+        if to_delete:
+            db.session.delete(to_delete)
+            db.session.commit()
+            return 0
