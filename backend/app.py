@@ -77,3 +77,13 @@ def get_total_spend():
         return jsonify(total), 200
     except Exception as e:
         return {"error": str(e)}, 500
+    
+
+@app.get('/transactions/remaining')
+def get_remaining():
+    req_body = request.get_json()
+    try:
+        remaining = Transactions.get_remaining(req_body['budget'])
+        return jsonify(remaining), 200
+    except Exception as e:
+        return {"error": str(e)}, 500

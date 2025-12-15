@@ -89,7 +89,7 @@ class Transactions(db.Model, SerializerMixin):
     :returns:
     '''
     @classmethod
-    def delete_one(cls, id:int):
+    def delete_one(cls, id: int):
         to_delete = cls.query.get(id)
         if to_delete:
             db.session.delete(to_delete)
@@ -112,3 +112,13 @@ class Transactions(db.Model, SerializerMixin):
             return result
         return 0
         
+    
+    '''
+    Computes the remaining funds available.
+    :param budget: an int representing the user's stated monthly budget
+    :returns: a float representing the remaining amount available to spend
+    '''
+    @classmethod
+    def get_remaining(cls, budget: int):
+        spent = cls.get_total_spend()
+        return budget - spent

@@ -64,37 +64,47 @@ content-type: application/json
     "memo": "dinner with friends"
 }
 
-### Request 7: Delete transaction by id
-### Status Code: 204
-### Response Body: No content
-DELETE http://127.0.0.1:5000/transactions/1 HTTP/1.1
-content-type: application/json
-
-### Request 8: Delete transaction with no matching ID
-### Status Code: 404
-### Response Body: { "error": "not found" }
-DELETE http://127.0.0.1:5000/transactions/10 HTTP/1.1
-content-type: application/json
-
-### Request 9: Get all Transactions
-### Status Code: 200
-### Response Body: array of the two transactions represented as dicts, the first transaction deleted
-GET http://127.0.0.1:5000/transactions HTTP/1.1
-content-type: application/json
-
-### Request 10: Get total spend 
+### Request 7: Get total spend 
 ### Status Code: 200
 ### Response Body: JSON object containing the sum of amount column 
 GET http://127.0.0.1:5000/transactions/total-spend HTTP/1.1
 content-type: application/json
 
-### Request 11: Delete all transactions
+### Request 8: Get remaining
+### Status Code: 200
+### Response Body: JSON object containing the remaining available to spend
+GET http://127.0.0.1:5000/transactions/remaining HTTP/1.1
+content-type: application/json
+
+{
+    "budget": 500
+}
+
+### Request 9: Delete transaction by id
+### Status Code: 204
+### Response Body: No content
+DELETE http://127.0.0.1:5000/transactions/1 HTTP/1.1
+content-type: application/json
+
+### Request 10: Delete transaction with no matching ID
+### Status Code: 404
+### Response Body: { "error": "not found" }
+DELETE http://127.0.0.1:5000/transactions/10 HTTP/1.1
+content-type: application/json
+
+### Request 11: Get all Transactions
+### Status Code: 200
+### Response Body: array of the two transactions represented as dicts, the first transaction deleted
+GET http://127.0.0.1:5000/transactions HTTP/1.1
+content-type: application/json
+
+### Request 12: Delete all transactions
 ### Status Code: 204
 ### Response Body: No content
 DELETE http://127.0.0.1:5000/transactions HTTP/1.1
 content-type: application/json
 
-### Request 12: Get all Transactions
+### Request 13: Get all Transactions
 ### Status Code: 200
 ### Response Body: an empty array
 GET http://127.0.0.1:5000/transactions HTTP/1.1
