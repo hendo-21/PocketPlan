@@ -30,7 +30,7 @@ class Transactions(db.Model, SerializerMixin):
             tr_params['date'] = req_body['date']
 
         # Create a new transaction using the params
-        new_transaction = Transactions(**tr_params)
+        new_transaction = cls(**tr_params)
 
         # Add the new transaction to the db and commit the change
         db.session.add(new_transaction)
@@ -41,13 +41,13 @@ class Transactions(db.Model, SerializerMixin):
     
 
     '''
-    Retrieves all transactions from the db.
+    Retrieves all transactions from the db, sorted in ascending order by date.
     :returns trs_as_dict: an array of dicts representing each of the transaction instances
     '''
     @classmethod
     def get_all_transactions(cls):
         # Query for all transactions. Query returns a list
-        all_trs = Transactions.query.all()
+        all_trs = cls.query.order_by(cls.date).all()
 
         # Add the instances as dicts to a new array
         trs_as_dict = []
@@ -98,12 +98,17 @@ class Transactions(db.Model, SerializerMixin):
         
 
     '''
-    Sums the values in amount column and returns the result. Uses SQLAlchemy core aggregate method.
-    :returns result: a float representing the sum of values in "amount" column of transactions table
+    Sums the values in amount column and returns the result. Uses SQLAlchemy core aggregate method SUM.
+    :returns result: a float representing the sum of values in "amount" column of transactions table or 0.
     '''
     @classmethod
     def get_total_spend(cls):
-        statement = select(func.sum(cls.amount))
-        result = db.session.execute(statement).scalar()
-        return result
+        # Construct SQL statement
+        sql_statement = select(func.sum(cls.amount))
+
+        # Execute sends the statement to the DBMS and runs it. Scalar extracts the value without iterating over returned query result.
+        result = db.session.execute(sql_statement).scalar()
+        if result:
+            return result
+        return 0
         
