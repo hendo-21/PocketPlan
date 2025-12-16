@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from database import db
-from models import Transactions
+from models import Summaries, Transactions
 
 """
 - Create the app
@@ -13,7 +13,6 @@ db.init_app(app)
 # Create models and tables - update this later to a database migration tool
 with app.app_context():
     db.create_all()
-
 
 @app.post('/transactions')
 def add_transaction():
@@ -29,14 +28,12 @@ def add_transaction():
     except Exception as e:
         return {"error": str(e)}, 500
 
-
 @app.get('/transactions')
 def get_all_transactions():
     try:
         return jsonify(Transactions.get_all_transactions()), 200
     except Exception as e:
         return {"error": str(e)}, 500
-
 
 @app.put('/transactions/<int:id>')
 def update_transaction(id):
@@ -49,7 +46,6 @@ def update_transaction(id):
     except Exception as e:
         return {"error": str(e)}, 500
 
-
 @app.delete('/transactions')
 def delete_all_transactions():
     try:
@@ -57,7 +53,6 @@ def delete_all_transactions():
         return '', 204
     except Exception as e:
         return {"error": str(e)}, 500
-
 
 @app.delete('/transactions/<int:id>')
 def delete_transaction(id):
@@ -69,7 +64,6 @@ def delete_transaction(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
-
 @app.get('/transactions/total-spend')
 def get_total_spend():
     try:
@@ -78,12 +72,66 @@ def get_total_spend():
     except Exception as e:
         return {"error": str(e)}, 500
     
-
 @app.get('/transactions/remaining')
 def get_remaining():
     req_body = request.get_json()
     try:
         remaining = Transactions.get_remaining(req_body['budget'])
         return jsonify(remaining), 200
+    except Exception as e:
+        return {"error": str(e)}, 500
+    
+
+@app.post('/summaries')
+def create_summary():
+    try:
+        new_summary = Summaries.create_summary()
+        return jsonify(new_summary.to_dict()), 201
+    except Exception as e:
+        return {"error": str(e)}, 500
+    
+@app.get('/summaries/<int:id>')
+def get_summary(id):
+    try:
+        summary = Summaries.get_summary(id)
+        if summary:
+            return jsonify(summary.to_dict()), 200
+        return {"error": "not found"}, 404
+    except Exception as e:
+        return {"error": str(e)}, 500
+    
+@app.get('/summaries')
+def get_all_summaries():
+    try:
+        return jsonify(Summaries.get_all_summaries()), 200
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+@app.put('/summaries/<int:id>')
+def update_summary(id):
+    req_body = request.get_json()
+    try:
+        updated_summary = Summaries.update_summary(id, req_body)
+        if updated_summary:
+            return jsonify(updated_summary.to_dict()), 200
+        return {"error": "not found"}, 404
+    except Exception as e:
+        return {"error": str(e)}, 500
+    
+@app.delete('/summaries/<int:id>')
+def delete_summary(id):
+    try:
+        result = Summaries.delete_summary(id)
+        if result == 0:
+            return '', 204
+        return {"error": "not found"}
+    except Exception as e:
+        return {"error": str(e)}, 500
+    
+@app.delete('/summaries')
+def delete_all_summaries():
+    try:
+        Summaries.delete_all_summaries()
+        return '', 204
     except Exception as e:
         return {"error": str(e)}, 500

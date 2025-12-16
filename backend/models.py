@@ -4,8 +4,80 @@ from database import db                             # Gives access to db.Model t
 from sqlalchemy_serializer import SerializerMixin   # Allows for serialization of models (to_dict() method). Serialized models need to include in model def
 from sqlalchemy import func, select
 
+# Define Summary database model. SerializerMixin adds a .to_dict() method to model instance.
+class Summaries(db.Model, SerializerMixin):
+    __tablename__ = "summary"
 
-# Define database model. SerializerMixin adds a .to_dict() method to model instances.
+    id: Mapped[int] = mapped_column(primary_key=True)
+    budget: Mapped[int] = mapped_column(default=600)
+    last_updated: Mapped[str] = mapped_column(default=date.today().strftime("%D"))
+
+    '''
+    Create a summary.
+    '''
+    @classmethod
+    def create_summary(cls):
+        new_summary = cls()
+        db.session.add(new_summary)
+        db.session.commit()
+        return new_summary
+
+    '''
+    Get summary.
+    '''
+    @classmethod
+    def get_summary(cls, id: int):
+        current_summary = cls.query.get(id)
+        if current_summary:
+            return current_summary
+        return None
+    
+    '''
+    Get all summaries.
+    '''
+    @classmethod
+    def get_all_summaries(cls):
+        all_summaries = cls.query.all()
+        as_dict_array = []
+        for summary in all_summaries:
+            as_dict_array.append(summary.to_dict())
+        return as_dict_array
+        
+    '''
+    Update summary
+    '''
+    @classmethod
+    def update_summary(cls, id: int, req_body: dict):
+        current_summary = cls.query.get(id)
+        print(req_body)
+        if current_summary:
+            current_summary.budget, current_summary.last_updated = req_body['budget'], req_body['last_updated']
+            db.session.commit()
+            return current_summary
+        return None
+    
+    '''
+    Delete summary
+    '''
+    @classmethod
+    def delete_summary(cls, id: int):
+        to_delete = cls.query.get(id)
+        if to_delete:
+            db.session.delete(to_delete)
+            db.session.commit()
+            return 0
+        return 1
+    
+    '''
+    Delete all summaries
+    '''
+    @classmethod
+    def delete_all_summaries(cls):
+        db.session.query(cls).delete()
+        db.session.commit()
+
+
+# Define Transactions database model. SerializerMixin adds a .to_dict() method to model instances.
 class Transactions(db.Model, SerializerMixin):
     __tablename__ = "transactions"
 
@@ -39,7 +111,6 @@ class Transactions(db.Model, SerializerMixin):
         # Return the new transaction
         return new_transaction
     
-
     '''
     Retrieves all transactions from the db, sorted in ascending order by date.
     :returns trs_as_dict: an array of dicts representing each of the transaction instances
@@ -56,7 +127,16 @@ class Transactions(db.Model, SerializerMixin):
 
         # Return the array of transactions as dicts
         return trs_as_dict
-    
+
+    '''
+    Retrieves one transaction.
+    :param id:
+    :returns: 
+    '''
+    @classmethod
+    def get_transaction(cls, id: int):
+        transaction = cls.query.get(id)
+        return transaction
 
     '''
     Updates a transaction.
@@ -72,7 +152,6 @@ class Transactions(db.Model, SerializerMixin):
             db.session.commit()
             return tr_to_update
         return None
-    
 
     '''
     Delete all transactions.
@@ -81,7 +160,6 @@ class Transactions(db.Model, SerializerMixin):
     def delete_all(cls):
         db.session.query(cls).delete()
         db.session.commit()
-
 
     '''
     Delete transaction by Id.
@@ -94,8 +172,7 @@ class Transactions(db.Model, SerializerMixin):
         if to_delete:
             db.session.delete(to_delete)
             db.session.commit()
-            return 0
-        
+            return 0    
 
     '''
     Sums the values in amount column and returns the result. Uses SQLAlchemy core aggregate method SUM.
@@ -111,7 +188,6 @@ class Transactions(db.Model, SerializerMixin):
         if result:
             return result
         return 0
-        
     
     '''
     Computes the remaining funds available.
