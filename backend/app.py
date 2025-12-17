@@ -14,6 +14,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+# ---- Transactions endpoints ----
 @app.post('/transactions')
 def add_transaction():
     try:
@@ -81,7 +82,7 @@ def get_remaining():
     except Exception as e:
         return {"error": str(e)}, 500
     
-
+# ---- Summaries endpoints ----
 @app.post('/summaries')
 def create_summary():
     try:
