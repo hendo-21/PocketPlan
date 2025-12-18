@@ -2,7 +2,7 @@
 
 import TransactionTableRow from "./TransactionTableRow";
 
-export default function TransactionTable () {
+export default function TransactionTable ({ transactions }) {
     return (
         <div className="transaction-table">
             <table>
@@ -15,7 +15,7 @@ export default function TransactionTable () {
                     </tr>
                 </thead>
                 <tbody>
-                    <TransactionTableRow/>
+                    { transactions.map((transactions, i) => <TransactionTableRow transaction={transactions} key={i}/>) }
                 </tbody>
             </table>
         </div>
