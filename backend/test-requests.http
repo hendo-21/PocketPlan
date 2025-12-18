@@ -2,7 +2,7 @@
 ### Status Code: 201
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-POST http://127.0.0.1:5000/transactions HTTP/1.1
+POST http://127.0.0.1:5000//api/transactions HTTP/1.1
 content-type: application/json
 
 {
@@ -15,7 +15,7 @@ content-type: application/json
 ### Status Code: 201
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-POST http://127.0.0.1:5000/transactions HTTP/1.1
+POST http://127.0.0.1:5000//api/transactions HTTP/1.1
 content-type: application/json
 
 {
@@ -26,13 +26,13 @@ content-type: application/json
 ### Request 3: Get all Transactions
 ### Status Code: 200
 ### Response Body: array of the two transactions represented as dicts
-GET http://127.0.0.1:5000/transactions HTTP/1.1
+GET http://127.0.0.1:5000/api/transactions HTTP/1.1
 content-type: application/json
 
 ### Request 4: Update a transaction
 ### Status Code: 200
 ### Response Body: JSON containing the updated dicitonary
-PUT http://127.0.0.1:5000/transactions/1 HTTP/1.1
+PUT http://127.0.0.1:5000/api/transactions/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -42,7 +42,7 @@ content-type: application/json
 ### Request 5: Update a transaction for an id that doesn't exist
 ### Status Code: 404
 ### Response Body: JSON containing the updated dicitonary
-PUT http://127.0.0.1:5000/transactions/10 HTTP/1.1
+PUT http://127.0.0.1:5000/api/transactions/10 HTTP/1.1
 content-type: application/json
 
 {
@@ -53,7 +53,7 @@ content-type: application/json
 ### Status Code: 201
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-POST http://127.0.0.1:5000/transactions HTTP/1.1
+POST http://127.0.0.1:5000/api/transactions HTTP/1.1
 content-type: application/json
 
 {
@@ -65,13 +65,13 @@ content-type: application/json
 ### Request 7: Get total spend 
 ### Status Code: 200
 ### Response Body: JSON object containing the sum of amount column 
-GET http://127.0.0.1:5000/transactions/total-spend HTTP/1.1
+GET http://127.0.0.1:5000/api/transactions/total-spend HTTP/1.1
 content-type: application/json
 
 ### Request 8: Get remaining
 ### Status Code: 200
 ### Response Body: JSON object containing the remaining available to spend
-GET http://127.0.0.1:5000/transactions/remaining HTTP/1.1
+GET http://127.0.0.1:5000/api/transactions/remaining HTTP/1.1
 content-type: application/json
 
 {
@@ -81,31 +81,31 @@ content-type: application/json
 ### Request 9: Delete transaction by id
 ### Status Code: 204
 ### Response Body: No content
-DELETE http://127.0.0.1:5000/transactions/1 HTTP/1.1
+DELETE http://127.0.0.1:5000/api/transactions/1 HTTP/1.1
 content-type: application/json
 
 ### Request 10: Delete transaction with no matching ID
 ### Status Code: 404
 ### Response Body: { "error": "not found" }
-DELETE http://127.0.0.1:5000/transactions/10 HTTP/1.1
+DELETE http://127.0.0.1:5000/api/transactions/10 HTTP/1.1
 content-type: application/json
 
 ### Request 11: Get all Transactions
 ### Status Code: 200
 ### Response Body: array of the two transactions represented as dicts, the first transaction deleted
-GET http://127.0.0.1:5000/transactions HTTP/1.1
+GET http://127.0.0.1:5000/api/transactions HTTP/1.1
 content-type: application/json
 
 ### Request 12: Delete all transactions
 ### Status Code: 204
 ### Response Body: No content
-DELETE http://127.0.0.1:5000/transactions HTTP/1.1
+DELETE http://127.0.0.1:5000/api/transactions HTTP/1.1
 content-type: application/json
 
 ### Request 13: Get all Transactions
 ### Status Code: 200
 ### Response Body: an empty array
-GET http://127.0.0.1:5000/transactions HTTP/1.1
+GET http://127.0.0.1:5000/api/transactions HTTP/1.1
 content-type: application/json
 
 ###################### Summary Table Tests #########################
@@ -114,21 +114,21 @@ content-type: application/json
 ### Status Code: 201
 ### Response Body: JSON containing the newly created summary
 ### Repsonse type: application/json
-POST http://127.0.0.1:5000/summaries HTTP/1.1
+POST http://127.0.0.1:5000/api/summaries HTTP/1.1
 content-type: application/json
 
 ### Request 2: Get a summary
 ### Status Code: 200
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-GET http://127.0.0.1:5000/summaries/1 HTTP/1.1
+GET http://127.0.0.1:5000/api/summaries/1 HTTP/1.1
 content-type: application/json
 
 ### Request 3: Update a summary
 ### Status Code: 200
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-PUT http://127.0.0.1:5000/summaries/1 HTTP/1.1
+PUT http://127.0.0.1:5000/api/summaries/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -140,26 +140,26 @@ content-type: application/json
 ### Status Code: 201
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-DELETE http://127.0.0.1:5000/summaries/1 HTTP/1.1
+DELETE http://127.0.0.1:5000/api/summaries/1 HTTP/1.1
 content-type: application/json
 
 ### Request 5: Get a summary
 ### Status Code: 404
 ### Response Body: {"error": "not found"}
 ### Repsonse type: application/json
-GET http://127.0.0.1:5000/summaries/1 HTTP/1.1
+GET http://127.0.0.1:5000/api/summaries/1 HTTP/1.1
 content-type: application/json
 
 ### Request 6: Get all summaries
 ### Status Code: 200
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-GET http://127.0.0.1:5000/summaries HTTP/1.1
+GET http://127.0.0.1:5000/api/summaries HTTP/1.1
 content-type: application/json
 
 ### Request 6: Delete all summaries
 ### Status Code: 204
 ### Response Body: JSON containing the newly created transaction
 ### Repsonse type: application/json
-DELETE http://127.0.0.1:5000/summaries HTTP/1.1
+DELETE http://127.0.0.1:5000/api/summaries HTTP/1.1
 content-type: application/json

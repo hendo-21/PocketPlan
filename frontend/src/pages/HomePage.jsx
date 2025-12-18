@@ -10,14 +10,14 @@ export default function HomePage() {
 
     // Fetch summary data from db
     const loadSummary = async () => {
-        const response = await fetch('/summary');
+        const response = await fetch('/api/summaries');
         const summaryData = await response.json();
         setSummary(summaryData);
     }
 
     // Fetch transaction data from db
     const loadTransactions = async () => {
-        const response = await fetch('/transactions');
+        const response = await fetch('/api/transactions');
         const transactionsData = await response.json();
         setTransactions(transactionsData);
     }
@@ -26,7 +26,7 @@ export default function HomePage() {
     useEffect(() => {
         loadSummary()
         loadTransactions()
-    , []})
+    }, [])
 
     // Delete summary - call REST API
 

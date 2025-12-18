@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+# from flask_cors import CORS
 from database import db
 from models import Summaries, Transactions
 
@@ -7,6 +8,7 @@ from models import Summaries, Transactions
 - sqlite:// indicates it's a SQLite database | transactions.db is the name of the SQLite db file. File location is a relative path: project.db located in same dir as app.py
 """
 app = Flask(__name__)
+# CORS(app, origins=["http://localhost:5173"])
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///transactions.db"
 db.init_app(app)
 
@@ -15,7 +17,7 @@ with app.app_context():
     db.create_all()
 
 # ---- Transactions endpoints ----
-@app.post('/transactions')
+@app.post('/api/transactions')
 def add_transaction():
     try:
         # Get the request body
@@ -29,14 +31,14 @@ def add_transaction():
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.get('/transactions')
+@app.get('/api/transactions')
 def get_all_transactions():
     try:
         return jsonify(Transactions.get_all_transactions()), 200
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.put('/transactions/<int:id>')
+@app.put('/api/transactions/<int:id>')
 def update_transaction(id):
     req_body = request.get_json()
     try: 
@@ -47,7 +49,7 @@ def update_transaction(id):
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.delete('/transactions')
+@app.delete('/api/transactions')
 def delete_all_transactions():
     try:
         Transactions.delete_all()
@@ -55,7 +57,7 @@ def delete_all_transactions():
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.delete('/transactions/<int:id>')
+@app.delete('/api/transactions/<int:id>')
 def delete_transaction(id):
     try:
         result = Transactions.delete_one(id)
@@ -65,7 +67,7 @@ def delete_transaction(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.get('/transactions/total-spend')
+@app.get('/api/transactions/total-spend')
 def get_total_spend():
     try:
         total = Transactions.get_total_spend()
@@ -73,7 +75,7 @@ def get_total_spend():
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.get('/transactions/remaining')
+@app.get('/api/transactions/remaining')
 def get_remaining():
     req_body = request.get_json()
     try:
@@ -83,7 +85,7 @@ def get_remaining():
         return {"error": str(e)}, 500
     
 # ---- Summaries endpoints ----
-@app.post('/summaries')
+@app.post('/api/summaries')
 def create_summary():
     try:
         new_summary = Summaries.create_summary()
@@ -91,7 +93,7 @@ def create_summary():
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.get('/summaries/<int:id>')
+@app.get('/api/summaries/<int:id>')
 def get_summary(id):
     try:
         summary = Summaries.get_summary(id)
@@ -101,14 +103,14 @@ def get_summary(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.get('/summaries')
+@app.get('/api/summaries')
 def get_all_summaries():
     try:
         return jsonify(Summaries.get_all_summaries()), 200
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.put('/summaries/<int:id>')
+@app.put('/api/summaries/<int:id>')
 def update_summary(id):
     req_body = request.get_json()
     try:
@@ -119,7 +121,7 @@ def update_summary(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.delete('/summaries/<int:id>')
+@app.delete('/api/summaries/<int:id>')
 def delete_summary(id):
     try:
         result = Summaries.delete_summary(id)
@@ -129,7 +131,7 @@ def delete_summary(id):
     except Exception as e:
         return {"error": str(e)}, 500
     
-@app.delete('/summaries')
+@app.delete('/api/summaries')
 def delete_all_summaries():
     try:
         Summaries.delete_all_summaries()
