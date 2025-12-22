@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-export default function Summary({ summary }) {
+export default function Summary({ summary, totalSpent }) {
     // Guard against slow return of db object
-    if(!summary) {
+    if(!summary || totalSpent === 0.0) {
         return <div>Summary loading...</div>;
     }
+
     
     // Prepare state
     const [budget, setBudget] = useState(summary.budget)
@@ -15,11 +16,12 @@ export default function Summary({ summary }) {
             <div className="summary-budget">
                 <h4>Budget</h4>
                 <p>{budget}</p>
+                <p>Last updated: {last_updated}</p>
             </div>
 
             <div className="summary-spent">
                 <h4>Spent</h4>
-                <p>{last_updated}</p>
+                <p>${totalSpent}</p>
             </div>
 
             <div className="summary-remaining">

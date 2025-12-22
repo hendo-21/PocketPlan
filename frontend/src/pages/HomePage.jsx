@@ -9,12 +9,21 @@ export default function HomePage() {
     const [summaries, setSummary] = useState([])
     const [transactions, setTransactions] = useState([])
     const [isAdding, setIsAdding] = useState(false)
+    const [totalSpent, setTotalSpent] = useState(0.0)
+
 
     // Fetch summary data from db
     const loadSummary = async () => {
         const response = await fetch('/api/summaries');
         const summaryData = await response.json();
         setSummary(summaryData);
+    }
+
+    // Fetch total spent for Summary component
+    const loadTotalSpent = async () => {
+        const response = await fetch('/api/transactions/total-spend');
+        const totalSpent = await response.json();
+        setTotalSpent(totalSpent);
     }
 
     // Fetch transaction data from db
@@ -24,10 +33,11 @@ export default function HomePage() {
         setTransactions(transactionsData);
     }
 
-    // Load summary and transaction data on initial render and re-mountings
+    // Load summary, transaction data, and total spent on initial render and re-mountings
     useEffect(() => {
         loadSummary()
         loadTransactions()
+        loadTotalSpent()
     }, [])
 
     // Delete summary - call REST API
@@ -42,7 +52,7 @@ export default function HomePage() {
     return(
         <div className="home-page">
             <h2>Welcome to Pocket Plan. App is under construction.</h2>
-            <Summary summary={summaries[0]}/>
+            <Summary summary={summaries[0]} totalSpent={totalSpent}/>
             <div>
                 {isAdding ? (
                     <AddTransaction setIsAdding={setIsAdding}/> )
