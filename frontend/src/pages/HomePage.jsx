@@ -2,11 +2,13 @@ import Summary from "../components/Summary"
 import TransactionTable from "../components/TransactionTable"
 import AddTransaction from "../components/AddTransaction"
 import { useState, useEffect } from "react"
+import { MdAddBox } from "react-icons/md"
 
 export default function HomePage() {
     // Prepare state
     const [summaries, setSummary] = useState([])
     const [transactions, setTransactions] = useState([])
+    const [isAdding, setIsAdding] = useState(false)
 
     // Fetch summary data from db
     const loadSummary = async () => {
@@ -36,12 +38,18 @@ export default function HomePage() {
 
     // Edit transaction - load the summary component (form with pre-loaded values)
 
-
+    // Return the HTML
     return(
         <div className="home-page">
             <h2>Welcome to Pocket Plan. App is under construction.</h2>
             <Summary summary={summaries[0]}/>
-            <AddTransaction/>
+            <div>
+                {isAdding ? (
+                    <AddTransaction setIsAdding={setIsAdding}/> )
+                    : (
+                    <button onClick={() => setIsAdding(true)}>Add Transaction</button>
+                    )}
+            </div>
             <TransactionTable transactions={transactions}/>
         </div>
     )
