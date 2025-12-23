@@ -2,7 +2,6 @@ import Summary from "../components/Summary"
 import TransactionTable from "../components/TransactionTable"
 import AddTransaction from "../components/AddTransaction"
 import { useState, useEffect } from "react"
-import { MdAddBox } from "react-icons/md"
 
 export default function HomePage() {
     // Prepare state
@@ -10,6 +9,7 @@ export default function HomePage() {
     const [transactions, setTransactions] = useState([])
     const [isAdding, setIsAdding] = useState(false)
     const [totalSpent, setTotalSpent] = useState(0.0)
+    const [remaining, setRemaining] = useState(0)
 
 
     // Fetch summary data from db
@@ -23,6 +23,7 @@ export default function HomePage() {
     const loadTotalSpent = async () => {
         const response = await fetch('/api/transactions/total-spend');
         const totalSpent = await response.json();
+        console.log('New total', totalSpent);
         setTotalSpent(totalSpent);
     }
 
@@ -32,6 +33,9 @@ export default function HomePage() {
         const transactionsData = await response.json();
         setTransactions(transactionsData);
     }
+
+    // Compute remaining amount locally to reduce API calls
+    const computeRemaining = async (budget, deductAmount) => {setRemaining(budget - deductAmount)}
 
     // Load summary, transaction data, and total spent on initial render and re-mountings
     useEffect(() => {
@@ -55,7 +59,7 @@ export default function HomePage() {
             <Summary summary={summaries[0]} totalSpent={totalSpent}/>
             <div>
                 {isAdding ? (
-                    <AddTransaction setIsAdding={setIsAdding}/> )
+                    <AddTransaction setIsAdding={setIsAdding} loadTotalSpent={loadTotalSpent} loadTransactions={loadTransactions}/> )
                     : (
                     <button onClick={() => setIsAdding(true)}>Add Transaction</button>
                     )}

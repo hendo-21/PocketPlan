@@ -2,10 +2,9 @@ import { useState } from "react";
 
 export default function Summary({ summary, totalSpent }) {
     // Guard against slow return of db object
-    if(!summary || totalSpent === 0.0) {
+    if(!summary) {
         return <div>Summary loading...</div>;
     }
-
     
     // Prepare state
     const [budget, setBudget] = useState(summary.budget)
@@ -26,7 +25,7 @@ export default function Summary({ summary, totalSpent }) {
 
             <div className="summary-remaining">
                 <h4>Remaining</h4>
-                <p>TODO</p>
+                <p>${budget - totalSpent}</p>
             </div>
         </div>
     );
