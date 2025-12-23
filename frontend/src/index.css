@@ -57,3 +57,16 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.transaction-table {
+  margin: 0 auto;      /* centers horizontally */
+  width: 100%;
+  max-width: 900px;    /* optional: limit table width */
+  border-collapse: collapse;
+}
+
+/* center cell contents if desired */
+.transaction-table td,
+.transaction-table th {
+  text-align: center;
+}
