@@ -99,16 +99,14 @@ class Transactions(db.Model, SerializerMixin):
             'memo': req_body['memo']
         }
         if 'date' in req_body:
-            tr_params['date'] = req_body['date']
+            # Build the formatted string from body
+            tr_params['date'] = req_body['date'][5] + req_body['date'][6] + '/' + req_body['date'][8] + req_body['date'][9] + '/' + req_body['date'][2] + req_body['date'][3]
 
-        # Create a new transaction using the params
+        # Create a new transaction using the params then add to db
         new_transaction = cls(**tr_params)
-
-        # Add the new transaction to the db and commit the change
         db.session.add(new_transaction)
         db.session.commit()
 
-        # Return the new transaction
         return new_transaction
     
     '''
@@ -117,7 +115,7 @@ class Transactions(db.Model, SerializerMixin):
     '''
     @classmethod
     def get_all_transactions(cls):
-        # Query for all transactions. Query returns a list
+        # Query for all transactions and order by date (ascending). Query returns a list
         all_trs = cls.query.order_by(cls.date).all()
 
         # Add the instances as dicts to a new array
