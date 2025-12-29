@@ -2,7 +2,7 @@ from sqlalchemy.orm import Mapped, mapped_column    # For model creation
 from datetime import date                           # For transaction timestamp
 from database import db                             # Gives access to db.Model to define database models
 from sqlalchemy_serializer import SerializerMixin   # Allows for serialization of models (to_dict() method). Serialized models need to include in model def
-from sqlalchemy import func, select
+from sqlalchemy import Date, func, select
 
 # Define Summary database model. SerializerMixin adds a .to_dict() method to model instance.
 class Summaries(db.Model, SerializerMixin):
@@ -10,7 +10,7 @@ class Summaries(db.Model, SerializerMixin):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     budget: Mapped[int] = mapped_column(default=600)
-    last_updated: Mapped[str] = mapped_column(default=date.today().strftime("%D"))
+    last_updated: Mapped[date] = mapped_column(default=date.today)
 
     '''
     Create a summary.
@@ -49,9 +49,8 @@ class Summaries(db.Model, SerializerMixin):
     @classmethod
     def update_summary(cls, id: int, req_body: dict):
         current_summary = cls.query.get(id)
-        print(req_body)
         if current_summary:
-            current_summary.budget, current_summary.last_updated = req_body['budget'], req_body['last_updated']
+            current_summary.budget, current_summary.last_updated = req_body['budget'], date.fromisoformat(req_body['last_updated'])
             db.session.commit()
             return current_summary
         return None
@@ -82,7 +81,7 @@ class Transactions(db.Model, SerializerMixin):
     __tablename__ = "transactions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    date: Mapped[str] = mapped_column(default=date.today().strftime("%D"))
+    date_added: Mapped[date] = mapped_column(Date, default=date.today)
     amount: Mapped[float] = mapped_column(default=0.0)
     memo: Mapped[str] = mapped_column(default="")
 
@@ -100,7 +99,10 @@ class Transactions(db.Model, SerializerMixin):
         }
         if 'date' in req_body:
             # Build the formatted string from body
-            tr_params['date'] = req_body['date'][5] + req_body['date'][6] + '/' + req_body['date'][8] + req_body['date'][9] + '/' + req_body['date'][2] + req_body['date'][3]
+        #    tr_params['date'] = req_body['date'][5] + req_body['date'][6] + '/' + req_body['date'][8] + req_body['date'][9] + '/' + req_body['date'][2] + req_body['date'][3]
+            # Parse to date object
+            parsed = date.fromisoformat(req_body['date'])
+            tr_params['date_added'] = parsed
 
         # Create a new transaction using the params then add to db
         new_transaction = cls(**tr_params)
@@ -116,7 +118,7 @@ class Transactions(db.Model, SerializerMixin):
     @classmethod
     def get_all_transactions(cls):
         # Query for all transactions and order by date (ascending). Query returns a list
-        all_trs = cls.query.order_by(cls.date).all()
+        all_trs = cls.query.order_by(cls.date_added).all()
 
         # Add the instances as dicts to a new array
         trs_as_dict = []

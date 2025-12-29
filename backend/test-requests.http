@@ -6,7 +6,7 @@ POST http://127.0.0.1:5000//api/transactions HTTP/1.1
 content-type: application/json
 
 {
-    "date": "11/15/25",
+    "date": "2025-11-15",
     "amount": 20.25,
     "memo": "pizzanista lunch"
 }
@@ -133,7 +133,7 @@ content-type: application/json
 
 {
     "budget": 200,
-    "last_updated": "11/15/25"
+    "last_updated": "2025-11-15"
 }
 
 ### Request 4: Delete a summary
