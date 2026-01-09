@@ -20,7 +20,7 @@ export default function Summary({ summary, totalSpent }) {
             <div className="summary-budget">
                 <h4>Budget</h4>
                 <h5>{budget}</h5>
-                <p>Last updated: {last_updated}</p>
+                <p>Updated: {last_updated}</p>
             </div>
 
             <div className="summary-spent">
