@@ -65,8 +65,87 @@ button:focus-visible {
   border-collapse: collapse;
 }
 
-/* center cell contents if desired */
 .transaction-table td,
 .transaction-table th {
   text-align: center;
+}
+
+.summary {
+  display: flex;
+  justify-content: center;
+}
+
+.summary h5, h4 {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.summary-budget {
+  border: 1px solid #f1f0f0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 0.75rem;
+  width: 115px;
+  padding: 0.5rem 0;
+}
+
+.summary-budget p {
+  font-size: xx-small;
+  margin: 0;
+}
+
+.summary-budget h5, h4, p {
+  padding-left: 0.5rem;
+}
+
+.summary-spent {
+  border: 1px solid #f1f0f0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 0.75rem;
+  width: 115px;
+  padding: 0.5rem 0;
+}
+
+.summary-spent p {
+  font-size: xx-small;
+  margin: 0;
+}
+
+.summary-spent h5, h4, p {
+  padding-left: 0.5rem;
+}
+
+.summary-remaining {
+  border: 1px solid #f1f0f0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 0.75rem;
+  width: 115px;
+  padding: 0.5rem 0;
+}
+
+.summary-remaining p {
+  font-size: xx-small;
+  margin: 0;
+}
+
+.summary-remaining h5, h4, p {
+  padding-left: 0.5rem;
 }

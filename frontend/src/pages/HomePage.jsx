@@ -9,7 +9,6 @@ export default function HomePage() {
     const [transactions, setTransactions] = useState([])
     const [isAdding, setIsAdding] = useState(false)
     const [totalSpent, setTotalSpent] = useState(0.0)
-    const [remaining, setRemaining] = useState(0)
 
 
     // Fetch summary data from db
@@ -33,9 +32,6 @@ export default function HomePage() {
         const transactionsData = await response.json();
         setTransactions(transactionsData);
     }
-
-    // Compute remaining amount locally to reduce API calls
-    const computeRemaining = async (budget, deductAmount) => {setRemaining(budget - deductAmount)}
 
     // Load summary, transaction data, and total spent on initial render and re-mountings
     useEffect(() => {

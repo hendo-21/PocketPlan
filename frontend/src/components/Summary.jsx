@@ -19,18 +19,18 @@ export default function Summary({ summary, totalSpent }) {
         <div className="summary">
             <div className="summary-budget">
                 <h4>Budget</h4>
-                <p>{budget}</p>
+                <h5>{budget}</h5>
                 <p>Last updated: {last_updated}</p>
             </div>
 
             <div className="summary-spent">
                 <h4>Spent</h4>
-                <p>${totalSpent}</p>
+                <h5>${totalSpent}</h5>
             </div>
 
             <div className="summary-remaining">
                 <h4>Remaining</h4>
-                <p>${budget - totalSpent}</p>
+                <h5>${budget - totalSpent}</h5>
             </div>
         </div>
     );
