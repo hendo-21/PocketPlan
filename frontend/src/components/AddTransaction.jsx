@@ -22,18 +22,18 @@ export default function AddTransaction({ setIsAdding, loadTotalSpent, loadTransa
 
     return (
         <>
-            <div className="add-transaction-header">
-                <p>Add Transaction</p>
-                <MdClose onClick={() => setIsAdding(false)}/>
-            </div>
-
-            <form onSubmit={ async (e) => { 
-                e.preventDefault(); 
-                await createTransaction(); 
+            <form className="add-transaction-form" onSubmit={ async (e) => {
+                e.preventDefault();
+                await createTransaction();
                 await loadTransactions();
-                setIsAdding(false); 
-                loadTotalSpent(); 
+                setIsAdding(false);
+                loadTotalSpent();
                 }}>
+
+                <div className="add-transaction-header">
+                    <h4>Add Transaction</h4>
+                    <MdClose onClick={() => setIsAdding(false)}/>
+                </div>
 
                 <p>
                     <label> Date

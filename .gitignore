@@ -2,4 +2,5 @@
 /backend/__pycache__/        # Python cache files
 /backend/instance/           # database file (will change this later) 
 /archive/                    # files from previous architecture
+/frontend/node_modules/      # node_modules
 __pycache__/
