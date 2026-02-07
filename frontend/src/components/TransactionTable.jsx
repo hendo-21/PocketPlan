@@ -5,6 +5,7 @@ import TransactionTableRow from "./TransactionTableRow";
 export default function TransactionTable ({ transactions }) {
     return (
         <div className="transaction-table">
+            <h4>Transaction Ledger</h4>
             <table>
                 <thead>
                     <tr>

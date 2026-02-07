@@ -30,7 +30,7 @@ export default function Summary({ summary, totalSpent }) {
 
             <div className="summary-remaining">
                 <h4>Remaining</h4>
-                <h5>${budget - totalSpent}</h5>
+                <h5>${(budget - totalSpent).toFixed(2)}</h5>
             </div>
         </div>
     );
