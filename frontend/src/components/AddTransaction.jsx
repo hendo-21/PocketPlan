@@ -2,9 +2,12 @@ import { useState } from "react"
 import { MdClose } from "react-icons/md"
 
 export default function AddTransaction({ setIsAdding, loadTotalSpent, loadTransactions }) {
+    // Create a date obj, convert to string, select just the date side and store. Defaults to today's date
+    const today = new Date().toISOString().split('T')[0];
+    
     // Prepare state
-    const [date, setDate] = useState("");
-    const [amount, setAmount] = useState(0.0);
+    const [date, setDate] = useState(today);
+    const [amount, setAmount] = useState();
     const [memo, setMemo] = useState("");
 
     // Add new transaction to Transactions table in db
@@ -22,7 +25,7 @@ export default function AddTransaction({ setIsAdding, loadTotalSpent, loadTransa
 
     return (
         <>
-            <form className="add-transaction-form" onSubmit={ async (e) => {
+            <form className="add-transaction-form" autoComplete="off" onSubmit={ async (e) => {
                 e.preventDefault();
                 await createTransaction();
                 await loadTransactions();
@@ -44,14 +47,14 @@ export default function AddTransaction({ setIsAdding, loadTotalSpent, loadTransa
 
                 <p>
                     <label> Amount
-                        <input type="number" id="amount" name="amount" step="0.01" placeholder="0.00" value={amount}
+                        <input type="number" id="amount" name="amount" step="0.01" placeholder="0.00" value={amount} required
                         onChange={ e => { setAmount(e.target.valueAsNumber) } }></input>
                     </label>
                 </p>
 
                 <p>
                     <label> Memo
-                        <input type="text" id="memo" name="memo" placeholder="Brief description" value ={memo}
+                        <input type="text" id="memo" name="memo" placeholder="Brief description" value ={memo} required
                         onChange={ e => { setMemo(e.target.value) } }></input>
                     </label>
                 </p>
