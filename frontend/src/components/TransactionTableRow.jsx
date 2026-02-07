@@ -11,7 +11,7 @@ export default function TransactionTableRow({ transaction }) {
     return (
         <tr>
             <td>{formattedDate}</td>
-            <td>${transaction.amount}</td>
+            <td>${(transaction.amount).toFixed(2)}</td>
             <td>{transaction.memo}</td>
             <td><MdOutlineEditNote/></td>
         </tr>
