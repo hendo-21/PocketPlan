@@ -16,6 +16,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+
 # ---- Transactions endpoints ----
 @app.post('/api/transactions')
 def add_transaction():
@@ -31,6 +32,7 @@ def add_transaction():
     except Exception as e:
         return {"error": str(e)}, 500
 
+
 @app.get('/api/transactions')
 def get_all_transactions():
     try:
@@ -38,16 +40,18 @@ def get_all_transactions():
     except Exception as e:
         return {"error": str(e)}, 500
 
+
 @app.put('/api/transactions/<int:id>')
 def update_transaction(id):
     req_body = request.get_json()
-    try: 
+    try:
         updated_tr = Transactions.update_transaction(id, req_body)
         if updated_tr:
             return jsonify(updated_tr.to_dict()), 200
         return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
+
 
 @app.delete('/api/transactions')
 def delete_all_transactions():
@@ -56,6 +60,7 @@ def delete_all_transactions():
         return '', 204
     except Exception as e:
         return {"error": str(e)}, 500
+
 
 @app.delete('/api/transactions/<int:id>')
 def delete_transaction(id):
@@ -66,7 +71,8 @@ def delete_transaction(id):
         return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.get('/api/transactions/total-spend')
 def get_total_spend():
     try:
@@ -74,7 +80,8 @@ def get_total_spend():
         return jsonify(total), 200
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.get('/api/transactions/remaining')
 def get_remaining():
     req_body = request.get_json()
@@ -83,7 +90,8 @@ def get_remaining():
         return jsonify(remaining), 200
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 # ---- Summaries endpoints ----
 @app.post('/api/summaries')
 def create_summary():
@@ -92,7 +100,8 @@ def create_summary():
         return jsonify(new_summary.to_dict()), 201
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.get('/api/summaries/<int:id>')
 def get_summary(id):
     try:
@@ -102,13 +111,15 @@ def get_summary(id):
         return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.get('/api/summaries')
 def get_all_summaries():
     try:
         return jsonify(Summaries.get_all_summaries()), 200
     except Exception as e:
         return {"error": str(e)}, 500
+
 
 @app.put('/api/summaries/<int:id>')
 def update_summary(id):
@@ -120,7 +131,8 @@ def update_summary(id):
         return {"error": "not found"}, 404
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.delete('/api/summaries/<int:id>')
 def delete_summary(id):
     try:
@@ -130,7 +142,8 @@ def delete_summary(id):
         return {"error": "not found"}
     except Exception as e:
         return {"error": str(e)}, 500
-    
+
+
 @app.delete('/api/summaries')
 def delete_all_summaries():
     try:
