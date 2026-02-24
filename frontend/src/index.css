@@ -20,6 +20,10 @@ body {
   min-height: 100vh;
 }
 
+.home-page {
+  width: 100%;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -48,7 +52,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #fafff9;
+    background-color: #e8f3e6;
   }
   a:hover {
     color: #747bff;
@@ -58,10 +62,33 @@ button:focus-visible {
   }
 }
 
+.app-header {
+  border: 1px solid #f1f0f0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 0.5rem 0;
+  padding-left: 0.5rem;
+}
+
+.app-header h2 {
+  margin: 0;
+}
+
 .transaction-table {
   margin: 1rem auto;
   width: 100%;
-  max-width: 900px;    /* optional: limit table width */
+  max-width: 400px;
+  box-sizing: border-box;
   border-collapse: collapse;
   padding: 1rem;
   border: 1px solid #f1f0f0;
@@ -102,10 +129,25 @@ button:focus-visible {
   width: 50%;
 }
 
+.transaction-table td:nth-child(4) {
+
+  background-color: #f1f0f0;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.transaction-table td:nth-child(5) {
+  background-color: #f1f0f0;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
 .summary {
   display: flex;
   justify-content: space-between;
-  max-width: calc(400px + 2rem);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
   margin: 0 auto;
 }
 
@@ -187,6 +229,13 @@ button:focus-visible {
   padding-left: 0.5rem;
 }
 
+.add-transaction-container {
+  max-width: 400px;
+  margin: 1rem auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .add-transaction-form {
   border: 1px solid #f1f0f0;
   border-radius: 5px;
@@ -197,8 +246,8 @@ button:focus-visible {
   flex-direction: column;
   align-items: flex-start;
 
-  margin: 1rem auto;
-  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 1rem;
 }
 
@@ -219,17 +268,6 @@ button:focus-visible {
   box-sizing: border-box;
 }
 
-.add-transaction-form input#date {
-  width: 398px;
-}
-
-.add-transaction-form input#amount {
-  width: 398px;
-}
-
-.add-transaction-form input#memo {
-  width: 398px;
-}
 
 .add-transaction-form p {
   margin-bottom: 0;
@@ -263,4 +301,10 @@ button:focus-visible {
 
 .add-transaction-header svg:hover {
   opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .transaction-table, .app-header, .summary, .add-transaction-container {
+    max-width: 700px;
+  }
 }

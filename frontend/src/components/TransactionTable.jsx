@@ -13,6 +13,7 @@ export default function TransactionTable ({ transactions }) {
                         <th>Amount</th>
                         <th>Memo</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

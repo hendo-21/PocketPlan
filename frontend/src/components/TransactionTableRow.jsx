@@ -1,4 +1,4 @@
-import { MdOutlineEditNote } from "react-icons/md";
+import { MdOutlineEditNote, MdDeleteOutline } from "react-icons/md";
 import { parseISO, format } from 'date-fns';
 
 export default function TransactionTableRow({ transaction }) {
@@ -14,6 +14,7 @@ export default function TransactionTableRow({ transaction }) {
             <td>${(transaction.amount).toFixed(2)}</td>
             <td>{transaction.memo}</td>
             <td><MdOutlineEditNote/></td>
+            <td><MdDeleteOutline/></td>
         </tr>
     )
 }

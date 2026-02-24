@@ -1,7 +1,13 @@
+// Components
 import Summary from "../components/Summary"
 import TransactionTable from "../components/TransactionTable"
 import AddTransaction from "../components/AddTransaction"
+
+// React functions
 import { useState, useEffect } from "react"
+
+// Icons
+import { AiFillRedEnvelope } from "react-icons/ai";
 
 export default function HomePage() {
     // Prepare state
@@ -51,9 +57,12 @@ export default function HomePage() {
     // Return the HTML
     return(
         <div className="home-page">
-            <h2>Welcome to Pocket Plan. App is under construction.</h2>
+            <div className="app-header">
+                <AiFillRedEnvelope />
+                <h4>Fun spend</h4>
+            </div>
             <Summary summary={summaries[0]} totalSpent={totalSpent}/>
-            <div>
+            <div className="add-transaction-container">
                 {isAdding ? (
                     <AddTransaction setIsAdding={setIsAdding} loadTotalSpent={loadTotalSpent} loadTransactions={loadTransactions}/> )
                     : (
