@@ -1,6 +1,11 @@
-/backend/.venv/              # virtual environment
-/backend/__pycache__/        # Python cache files
-/backend/instance/           # database file (will change this later) 
-/archive/                    # files from previous architecture
-/frontend/node_modules/      # node_modules
+# virtual environment
+/backend/.venv/
+# Python cache files
+/backend/__pycache__/
+# database file (will change this later)
+/backend/instance/
+# files from previous architecture
+/archive/
+# node_modules
+/frontend/node_modules/
 __pycache__/

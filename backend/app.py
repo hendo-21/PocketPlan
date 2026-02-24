@@ -67,6 +67,7 @@ def delete_all_transactions():
 @app.delete('/api/transactions/<int:id>')
 def delete_transaction(id):
     try:
+        print(type(id))
         result = Transactions.delete_one(id)
         if result == 0:
             return '', 204

@@ -47,10 +47,22 @@ export default function HomePage() {
     }, [])
 
     // Delete summary - call REST API
+    const onDelete = async (id) => {
+        const delete_res = await fetch(
+            `/api/transactions/${id}`,
+            { method: 'DELETE'}
+        );
+        if(delete_res.status === 204) {
+            loadSummary();
+            loadTotalSpent();
+            loadTransactions();
+        }
+        else {
+            console.log(`Failed to delete transaction with ID ${id}. Status code: ${delete_res.status}`);
+        }
+    }
 
     // Edit summary - load the summary component (form with pre-loaded values)
-
-    // Delete transaction- call REST API
 
     // Edit transaction - load the summary component (form with pre-loaded values)
 
@@ -69,7 +81,7 @@ export default function HomePage() {
                     <button onClick={() => setIsAdding(true)}>Add Transaction</button>
                     )}
             </div>
-            <TransactionTable transactions={transactions}/>
+            <TransactionTable transactions={transactions} onDelete={onDelete}/>
         </div>
     )
 }

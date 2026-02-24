@@ -1,7 +1,7 @@
 import { MdOutlineEditNote, MdDeleteOutline } from "react-icons/md";
 import { parseISO, format } from 'date-fns';
 
-export default function TransactionTableRow({ transaction }) {
+export default function TransactionTableRow({ transaction, onDelete }) {
     // Convert date ISO to a Date object
     const dateObj = parseISO(transaction.date_added)
 
@@ -14,7 +14,7 @@ export default function TransactionTableRow({ transaction }) {
             <td>${(transaction.amount).toFixed(2)}</td>
             <td>{transaction.memo}</td>
             <td><MdOutlineEditNote/></td>
-            <td><MdDeleteOutline/></td>
+            <td><MdDeleteOutline onClick={() => onDelete(transaction.id)}/></td>
         </tr>
     )
 }

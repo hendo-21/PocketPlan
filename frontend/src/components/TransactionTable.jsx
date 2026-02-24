@@ -2,7 +2,7 @@
 
 import TransactionTableRow from "./TransactionTableRow";
 
-export default function TransactionTable ({ transactions }) {
+export default function TransactionTable ({ transactions, onDelete }) {
     return (
         <div className="transaction-table">
             <h4>Transaction Ledger</h4>
@@ -17,7 +17,7 @@ export default function TransactionTable ({ transactions }) {
                     </tr>
                 </thead>
                 <tbody>
-                    { transactions.map((transactions, i) => <TransactionTableRow transaction={transactions} key={i}/>) }
+                    { transactions.map((transactions, i) => <TransactionTableRow transaction={transactions} key={i} onDelete={onDelete}/>) }
                 </tbody>
             </table>
         </div>
