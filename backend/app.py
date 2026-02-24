@@ -5,7 +5,9 @@ from models import Summaries, Transactions
 
 """
 - Create the app
-- sqlite:// indicates it's a SQLite database | transactions.db is the name of the SQLite db file. File location is a relative path: project.db located in same dir as app.py
+- sqlite:// indicates it's a SQLite database | transactions.db is the name of
+- the SQLite db file. File location is a relative path: project.db located in
+- same dir as app.py
 """
 app = Flask(__name__)
 # CORS(app, origins=["http://localhost:5173"])
