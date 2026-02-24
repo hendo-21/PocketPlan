@@ -1,10 +1,24 @@
-from sqlalchemy.orm import Mapped, mapped_column    # For model creation
-from datetime import date                           # For transaction timestamp
-from database import db                             # Gives access to db.Model to define database models
-from sqlalchemy_serializer import SerializerMixin   # Allows for serialization of models (to_dict() method). Serialized models need to include in model def
+# For model creation
+from sqlalchemy.orm import Mapped, mapped_column
+# For transaction timestamp
+from datetime import date
+# Gives access to db.Model to define database models
+from database import db
+
+'''
+Allows for serialization of models (to_dict() method)
+Serialized models need to include in model def
+'''
+from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy import Date, func, select
 
-# Define Summary database model. SerializerMixin adds a .to_dict() method to model instance.
+
+'''
+Define Summary database model. SerializerMixin adds a .to_dict()
+method to model instance.
+'''
+
+
 class Summaries(db.Model, SerializerMixin):
     __tablename__ = "summary"
 
@@ -31,7 +45,8 @@ class Summaries(db.Model, SerializerMixin):
         if current_summary:
             return current_summary
         return None
-    
+
+
     '''
     Get all summaries.
     '''
@@ -42,7 +57,7 @@ class Summaries(db.Model, SerializerMixin):
         for summary in all_summaries:
             as_dict_array.append(summary.to_dict())
         return as_dict_array
-        
+
     '''
     Update summary
     '''
@@ -54,7 +69,7 @@ class Summaries(db.Model, SerializerMixin):
             db.session.commit()
             return current_summary
         return None
-    
+
     '''
     Delete summary
     '''
@@ -66,7 +81,7 @@ class Summaries(db.Model, SerializerMixin):
             db.session.commit()
             return 0
         return 1
-    
+
     '''
     Delete all summaries
     '''
@@ -99,7 +114,7 @@ class Transactions(db.Model, SerializerMixin):
         }
         if 'date' in req_body:
             # Build the formatted string from body
-        #    tr_params['date'] = req_body['date'][5] + req_body['date'][6] + '/' + req_body['date'][8] + req_body['date'][9] + '/' + req_body['date'][2] + req_body['date'][3]
+            #    tr_params['date'] = req_body['date'][5] + req_body['date'][6] + '/' + req_body['date'][8] + req_body['date'][9] + '/' + req_body['date'][2] + req_body['date'][3]
             # Parse to date object
             parsed = date.fromisoformat(req_body['date'])
             tr_params['date_added'] = parsed
@@ -110,7 +125,7 @@ class Transactions(db.Model, SerializerMixin):
         db.session.commit()
 
         return new_transaction
-    
+
     '''
     Retrieves all transactions from the db, sorted in ascending order by date.
     :returns trs_as_dict: an array of dicts representing each of the transaction instances
@@ -131,7 +146,7 @@ class Transactions(db.Model, SerializerMixin):
     '''
     Retrieves one transaction.
     :param id:
-    :returns: 
+    :returns:
     '''
     @classmethod
     def get_transaction(cls, id: int):
@@ -172,7 +187,7 @@ class Transactions(db.Model, SerializerMixin):
         if to_delete:
             db.session.delete(to_delete)
             db.session.commit()
-            return 0    
+            return 0
 
     '''
     Sums the values in amount column and returns the result. Uses SQLAlchemy core aggregate method SUM.
@@ -188,7 +203,7 @@ class Transactions(db.Model, SerializerMixin):
         if result:
             return result
         return 0
-    
+
     '''
     Computes the remaining funds available.
     :param budget: an int representing the user's stated monthly budget
