@@ -303,6 +303,76 @@ button:focus-visible {
   opacity: 0.7;
 }
 
+.edit-transaction-form {
+  border: 1px solid #f1f0f0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.edit-transaction-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.edit-transaction-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.edit-transaction-form p {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.edit-transaction-form button {
+  margin-top: 1rem;
+  background-color: #e5e5e5;
+}
+
+.edit-transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 0;
+  border-bottom: 1px solid #f1f0f0;
+}
+
+.edit-transaction-header h4 {
+  margin: 0;
+  font-size: 1.5em;
+  padding-left: 0;
+}
+
+.edit-transaction-header svg {
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.edit-transaction-header svg:hover {
+  opacity: 0.7;
+}
+
+.edit-transaction-form tr {
+  padding: 0;
+}
+
 @media (min-width: 768px) {
   .transaction-table, .app-header, .summary, .add-transaction-container {
     max-width: 700px;

@@ -15,6 +15,7 @@ export default function HomePage() {
     const [transactions, setTransactions] = useState([])
     const [isAdding, setIsAdding] = useState(false)
     const [totalSpent, setTotalSpent] = useState(0.0)
+    const [isEditing, setIsEditing] = useState('')
 
 
     // Fetch summary data from db
@@ -64,7 +65,22 @@ export default function HomePage() {
 
     // Edit summary - load the summary component (form with pre-loaded values)
 
-    // Edit transaction - load the summary component (form with pre-loaded values)
+    // Edit transaction
+    const onEdit = async (id, date_added, amount, memo) => {
+        const edited_transaction = { date_added, amount, memo }
+        const edited_tr_res = await fetch(`/api/transactions/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(edited_transaction)
+        });
+        if(edited_tr_res.status === 200) {
+            loadSummary();
+            loadTotalSpent();
+            loadTransactions();
+        } else {
+            console.log(`Failed to update transaction with ID ${id}. Status code: ${edit_tr_res.status}`);
+        }
+    }
 
     // Return the HTML
     return(
@@ -81,7 +97,13 @@ export default function HomePage() {
                     <button onClick={() => setIsAdding(true)}>Add Transaction</button>
                     )}
             </div>
-            <TransactionTable transactions={transactions} onDelete={onDelete}/>
+            <TransactionTable 
+                transactions={transactions} 
+                isEditing={isEditing} 
+                setIsEditing={setIsEditing}
+                onEdit={onEdit}
+                onDelete={onDelete} 
+            />
         </div>
     )
 }

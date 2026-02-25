@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { MdClose } from "react-icons/md"
+import { useState } from "react";
+import { MdClose } from "react-icons/md";
 
 export default function AddTransaction({ setIsAdding, loadTotalSpent, loadTransactions }) {
     // Create a date obj, convert to string, select just the date side and store. Defaults to today's date

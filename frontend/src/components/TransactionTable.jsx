@@ -2,7 +2,7 @@
 
 import TransactionTableRow from "./TransactionTableRow";
 
-export default function TransactionTable ({ transactions, onDelete }) {
+export default function TransactionTable ({ transactions, isEditing, setIsEditing, onEdit, onDelete }) {
     return (
         <div className="transaction-table">
             <h4>Transaction Ledger</h4>
@@ -17,7 +17,16 @@ export default function TransactionTable ({ transactions, onDelete }) {
                     </tr>
                 </thead>
                 <tbody>
-                    { transactions.map((transactions, i) => <TransactionTableRow transaction={transactions} key={i} onDelete={onDelete}/>) }
+                    { transactions.map((transactions, i) => 
+                        <TransactionTableRow 
+                            transaction={transactions} 
+                            key={i} 
+                            isEditing={isEditing} 
+                            setIsEditing={setIsEditing}
+                            onDelete={onDelete} 
+                            onEdit={onEdit}
+                        />
+                    ) }
                 </tbody>
             </table>
         </div>
