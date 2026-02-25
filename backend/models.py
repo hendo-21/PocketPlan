@@ -163,7 +163,10 @@ class Transactions(db.Model, SerializerMixin):
     def update_transaction(cls, id: int, req_body: dict):
         tr_to_update = cls.query.get(id)
         if tr_to_update:
-            tr_to_update.date_added = req_body['date_added']
+            # Parse ISO formatted string to date object
+            parsed = date.fromisoformat(req_body['date_added'])
+
+            tr_to_update.date_added = parsed
             tr_to_update.amount = req_body['amount']
             tr_to_update.memo = req_body['memo']
             db.session.commit()

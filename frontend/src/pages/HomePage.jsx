@@ -78,7 +78,7 @@ export default function HomePage() {
             loadTotalSpent();
             loadTransactions();
         } else {
-            console.log(`Failed to update transaction with ID ${id}. Status code: ${edit_tr_res.status}`);
+            console.log(`Failed to update transaction with ID ${id}. Status code: ${edited_tr_res.status}`);
         }
     }
 
