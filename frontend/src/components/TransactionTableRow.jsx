@@ -16,8 +16,8 @@ export default function TransactionTableRow({ transaction, isEditing, setIsEditi
                 <td>{formattedDate}</td>
                 <td>${(transaction.amount).toFixed(2)}</td>
                 <td>{transaction.memo}</td>
-                <td><MdOutlineEditNote onClick={() => setIsEditing(transaction.id)}/></td>
-                <td><MdDeleteOutline onClick={() => onDelete(transaction.id)}/></td>
+                <td className='action-icons'><MdOutlineEditNote onClick={() => setIsEditing(transaction.id)}/></td>
+                <td className='action-icons'><MdDeleteOutline onClick={() => onDelete(transaction.id)}/></td>
             </tr>
             {isEditing === transaction.id && (
                 <tr>

@@ -112,6 +112,7 @@ button:focus-visible {
   text-align: left;
   border-bottom: 1px solid #f1f0f0;
   padding: 0.5rem 0;
+  font-size: small;
 }
 
 .transaction-table th:nth-child(1),
@@ -231,7 +232,9 @@ button:focus-visible {
 
 .add-transaction-container {
   max-width: 400px;
-  margin: 1rem auto;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
   box-sizing: border-box;
 }
@@ -371,6 +374,15 @@ button:focus-visible {
 
 .edit-transaction-form tr {
   padding: 0;
+}
+
+.action-icons svg {
+  cursor: pointer;
+  font-size: 1.25em;
+}
+
+.action-icons svg:hover {
+  opacity: 0.7;
 }
 
 @media (min-width: 768px) {
