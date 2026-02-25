@@ -1,7 +1,14 @@
+// Components
+import EditSummary from "./EditSummary";
+
+// Functions
 import { useState } from "react";
 import { parseISO, format } from "date-fns";
 
-export default function Summary({ summary, totalSpent }) {
+// Icons
+import { MdOutlineEditNote } from 'react-icons/md';
+
+export default function Summary({ summary, totalSpent, isEditingSummary, setIsEditingSummary, onSummaryEdit }) {
     // Guard against slow return of db object
     if(!summary) {
         return <div>Summary loading...</div>;
@@ -10,17 +17,22 @@ export default function Summary({ summary, totalSpent }) {
     // Convert last_updated to mm/dd/yy format
     const last_updatedDateObj = parseISO(summary.last_updated)
     const formattedLastUpdatedDate = format(last_updatedDateObj, 'MM/dd/yy')
-    
-    // Prepare state
-    const [budget, setBudget] = useState(summary.budget)
-    const [last_updated, setLastUpdated] = useState(formattedLastUpdatedDate)
 
     return (
         <div className="summary">
             <div className="summary-budget">
-                <h4>Budget</h4>
-                <h5>{budget}</h5>
-                <p>Updated: {last_updated}</p>
+                { isEditingSummary ? (
+                    <EditSummary summary={summary} setIsEditingSummary={setIsEditingSummary} onSummaryEdit={onSummaryEdit}/> 
+                ) : (
+                    <>
+                        <div className="summary-budget-header">
+                            <h4>Budget</h4>
+                            <MdOutlineEditNote onClick={() => setIsEditingSummary(true)}/>
+                        </div>
+                        <h5>{summary.budget}</h5>
+                        <p>Updated: {formattedLastUpdatedDate}</p>
+                    </>
+                )}
             </div>
 
             <div className="summary-spent">
@@ -30,7 +42,7 @@ export default function Summary({ summary, totalSpent }) {
 
             <div className="summary-remaining">
                 <h4>Remaining</h4>
-                <h5>${(budget - totalSpent).toFixed(2)}</h5>
+                <h5>${(summary.budget - totalSpent).toFixed(2)}</h5>
             </div>
         </div>
     );

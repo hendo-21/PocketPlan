@@ -65,7 +65,8 @@ class Summaries(db.Model, SerializerMixin):
     def update_summary(cls, id: int, req_body: dict):
         current_summary = cls.query.get(id)
         if current_summary:
-            current_summary.budget, current_summary.last_updated = req_body['budget'], date.fromisoformat(req_body['last_updated'])
+            current_summary.budget = req_body['budget']
+            current_summary.last_updated = date.today()
             db.session.commit()
             return current_summary
         return None
