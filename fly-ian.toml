@@ -1,0 +1,26 @@
+app = "pocketplan-ian"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  # Path to the SQLite database file on the persistent volume.
+  # Four slashes: sqlite:// (protocol) + /data/transactions.db (absolute path)
+  DATABASE_URL = "sqlite:////data/transactions.db"
+
+[http_service]
+  internal_port = 8080
+  force_https = true        # Fly provisions TLS and redirects HTTP → HTTPS
+  auto_stop_machines = false
+  min_machines_running = 1
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[[mounts]]
+  source = "pocketplan_ian_data"  # Name of the Fly volume (created before first deploy)
+  destination = "/data"
+  initial_size = "1gb"
