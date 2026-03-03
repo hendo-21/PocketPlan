@@ -37,7 +37,7 @@ export default function Summary({ summary, totalSpent, isEditingSummary, setIsEd
 
             <div className="summary-spent">
                 <h4>Spent</h4>
-                <h5>${totalSpent}</h5>
+                <h5>${(totalSpent).toFixed(2)}</h5>
             </div>
 
             <div className="summary-remaining">

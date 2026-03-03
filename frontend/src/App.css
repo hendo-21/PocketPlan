@@ -2,8 +2,13 @@
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
-  padding-top: 20px;
   text-align: center;
+  box-sizing: border-box;
+
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: max(1rem, env(safe-area-inset-left));
 }
 
 @media (min-width: 768px) {

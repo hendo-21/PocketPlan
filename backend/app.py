@@ -22,6 +22,8 @@ db.init_app(app)
 # Create models and tables - update this later to a database migration tool
 with app.app_context():
     db.create_all()
+    if Summaries.query.count() == 0:
+        Summaries.create_summary()
 
 
 # ---- Transactions endpoints ----

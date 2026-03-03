@@ -1,4 +1,4 @@
-app = "pocketplan-ian"
+app = "funmoney-ian"
 primary_region = "sjc"
 
 [build]
@@ -21,6 +21,6 @@ primary_region = "sjc"
   cpus = 1
 
 [[mounts]]
-  source = "pocketplan_ian_data"  # Name of the Fly volume (created before first deploy)
+  source = "funmoney_ian_data"  # Name of the Fly volume (created before first deploy)
   destination = "/data"
   initial_size = "1gb"
