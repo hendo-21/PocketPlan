@@ -1,7 +1,7 @@
 # Fun Money Tracker
 
 ## GIF
-[embed this somehow]
+[Demo](demo.gif)
 
 ## Description
 A simple full stack personal finance web app for tracking discretionary spending.
