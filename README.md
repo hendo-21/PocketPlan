@@ -58,7 +58,7 @@ I was motivated my a desire to move beyond my coursework stack, and I wanted a s
  - Ultimately this was unnecessary given the simplicity of the database design
 - Build a REST API using Python
 - Develop my frontend skills with React
-- Host the web app so that it can actually be used.
+- Host the web app so that it can actually be used
 
 ## Future Improvements
 UI:
@@ -66,7 +66,7 @@ UI:
 - Display previous summaries
 - Carry over under/over spending into next month
 
-User authentication. Currently have one deployed for myself and my partner.
+User authentication. Currently have one deployed for myself and one for my partner.
 
 ## License
 [MIT](LICENSE)
