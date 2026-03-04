@@ -16,6 +16,7 @@ Banking and budgeting apps provide way more features than we needed. This simple
 - Backend: Python, Flask, SQLAlchemy
 - Database: SQLite
 - Deployment: Fly.io, Docker
+    - Deployed twice: once for myself, once for my partner
 
 ## Features
 - Add, edit and delete transactions from a ledger.
@@ -53,7 +54,7 @@ Banking and budgeting apps provide way more features than we needed. This simple
 ```
 
 ## What I Learned
-I was motivated my a desire to move beyond my coursework stack, and I wanted a solution that was super light weight, knowing the target customers were myself and my wife. My goals with this project were to:
+I was motivated by a desire to move beyond my coursework stack, and I wanted a solution that was super light weight, knowing the target customers were myself and my wife. My goals with this project were to:
 - Experience a new tech stack that used relational databases via an ORM
     - Ultimately this was unnecessary given the simplicity of the database design
 - Build a REST API using Python
