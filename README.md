@@ -55,7 +55,7 @@ Deployment: Fly.io, Docker
 ## What I Learned
 I was motivated my a desire to move beyond my coursework stack, and I wanted a solution that was super light weight, knowing the target customers were myself and my wife. My goals with this project were to:
 - Experience a new tech stack that used relational databases via an ORM
- - Ultimately this was unnecessary given the simplicity of the database design
+- - Ultimately this was unnecessary given the simplicity of the database design
 - Build a REST API using Python
 - Develop my frontend skills with React
 - Host the web app so that it can actually be used
